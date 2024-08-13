@@ -222,3 +222,151 @@ main {
   font-size: 1rem;
   color: #050d26;
 }
+
+/* Add Record Form */
+
+.addRecordContainer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 350px;
+  height: 100%;
+  transition: right 0.3s ease;
+  box-sizing: border-box;
+  background: #f4f6fd;
+  border-radius: 20px 0 0 0;
+  box-shadow: -2px 0px 8px 0px #1b1e6d26;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.addRecordContainer.active {
+  right: 0; /* Slide into view */
+}
+
+.addRecordContainer .addRecordTitle {
+  padding: 1rem;
+  background-color: #ffffff;
+  text-align: center;
+  border-radius: 20px 0 0 0;
+  color: #050d26;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.addRecordContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem;
+}
+
+.addRecordContainer .inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.addRecordContainer label {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #050d26;
+}
+
+.statusContainer,
+.colorsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+  padding: 8px;
+  flex-wrap: wrap;
+}
+
+.colorsContainer div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.addRecordContainer select,
+.addRecordContainer textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.colorsContainer div {
+  display: flex;
+  align-items: center;
+}
+
+.colorsContainer div div {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.colorsContainer div span {
+  margin-left: -0.25rem;
+}
+
+.colorsContainer .red {
+  background: #ff1717;
+}
+.addRecordContainer .yellow {
+  background: #ffbe17;
+}
+.addRecordContainer .blue {
+  background: #1782ff;
+}
+.addRecordContainer .white {
+  background: #ffffff;
+}
+.addRecordContainer .black {
+  background: #111111;
+}
+
+.addRecordContainer button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background: #007bff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.addRecordContainer button[type="reset"] {
+  background: #6c757d;
+}
+
+.formControls {
+  width: 100%;
+  padding: 2rem 0 0 1rem;
+  display: flex;
+}
+
+.formControls button {
+  box-shadow: 0px 0px 0px 1px #a1a9b829;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#cancelBtn {
+  background-color: #ffffff;
+  color: #a1a9b8;
+}
+
+#addBtn {
+  background-color: #1c1f6d;
+  color: #ffffff;
+}

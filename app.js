@@ -143,28 +143,33 @@ const products = [
     description:
       "Adjustable LED desk lamp with dimming options and modern design.",
   },
-  //   {
-  //     id: "13",
-  //     name: "Laptop Cooling Pad",
-  //     date: "26/07/2024",
-  //     exchange: false,
-  //     colorOptions: "Black, Gray",
-  //     price: 1800,
-  //     quantity: 1,
-  //     amount: 1800,
-  //     description:
-  //       "Slim and lightweight laptop cooling pad for enhanced airflow.",
-  //   },
+  {
+    id: "13",
+    name: "Laptop Cooling Pad",
+    date: "26/07/2024",
+    exchange: false,
+    colorOptions: "Black, Gray",
+    price: 1800,
+    quantity: 1,
+    amount: 1800,
+    description:
+      "Slim and lightweight laptop cooling pad for enhanced airflow.",
+  },
 ];
 const rowsPerPage = 6;
 let currentPage = 1;
 let totalPages = Math.ceil(products.length / rowsPerPage);
 
 const table = document.querySelector(".productsTable");
+const addRecordBtn = document.querySelector("#addRecord");
 const prevBtn = document.querySelector("#prevBtn");
 const nextBtn = document.querySelector("#nextBtn");
 const currentPageEle = document.querySelector("#currentPage");
 const totalPagesEle = document.querySelector("#totalPages");
+const addRecordContainer = document.querySelector(".addRecordContainer");
+const form = document.querySelector("form");
+const cancelFormBtn = document.querySelector("#cancelBtn");
+const addBtn = document.querySelector("#addBtn");
 
 const populateTable = (products) => {
   products.forEach(
@@ -228,6 +233,43 @@ const populateTable = (products) => {
   );
 };
 
+const addProduct = (e) => {
+  e.preventDefault();
+
+  // values from the form
+  const id = form.querySelector('input[placeholder="ID"]').value;
+  const name = form.querySelector("select").value;
+  const description = form.querySelector("textarea").value;
+  const date = form.querySelector('input[type="date"]').value;
+  const status = form.querySelector('input[name="status"]:checked').value;
+  const colors = Array.from(
+    form.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((checkbox) => checkbox.value);
+  const quantity = form.querySelector('input[placeholder="1"]').value;
+  const price = form.querySelector('input[name="price"]').value;
+  const amount = form.querySelector('input[name="amount"]').value;
+
+  // new product object
+  const newProduct = {
+    id,
+    name,
+    description,
+    date,
+    exchange: status === "Available" ? true : false,
+    colorOptions: colors.join(", "),
+    quantity: parseInt(quantity, 10),
+    price: parseFloat(price),
+    amount: parseFloat(amount),
+  };
+
+  products.push(newProduct);
+
+  form.reset();
+  addRecordContainer.classList.remove("active");
+
+  updateTable();
+};
+
 const updateTable = () => {
   const tbody = table.querySelector("tbody");
   tbody.innerHTML = "";
@@ -258,5 +300,15 @@ nextBtn.onclick = () => {
     updateTable();
   }
 };
+
+addRecordBtn.addEventListener("click", () => {
+  addRecordContainer.classList.toggle("active");
+});
+
+cancelFormBtn.addEventListener("click", () => {
+  addRecordContainer.classList.remove("active");
+});
+
+addBtn.addEventListener("click", addProduct);
 
 updateTable(); // Initialize table with the first page

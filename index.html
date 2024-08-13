@@ -70,7 +70,7 @@
                 <img alt="" src="./assets/cardViewIcon.svg" />
               </button>
             </div>
-            <button class="addRecordBtn">
+            <button id="addRecord" class="addRecordBtn">
               <span>Add Record</span><img alt="" src="./assets/addIcon.svg" />
             </button>
           </div>
@@ -103,6 +103,120 @@
             <img src="./assets/chevronRight.svg" alt="ChevronRight" />
           </button>
         </div>
+      </section>
+      <section class="addRecordContainer">
+        <div class="addRecordTitle">Add New Record</div>
+        <form>
+          <div class="inputContainer">
+            <label>ID</label>
+            <input class="container" type="text" placeholder="ID" required />
+          </div>
+          <div class="inputContainer">
+            <label>Product Name</label>
+            <select required>
+              <option value="USB-C Hub">USB-C Hub</option>
+              <option value="Bluetooth Speaker">Bluetooth Speaker</option>
+              <option value="Wireless Earbuds">Wireless Earbuds</option>
+              <option value="Smartwatch">Smartwatch</option>
+              <option value="Fitness Tracker">Fitness Tracker</option>
+              <option value="Gaming Mouse">Gaming Mouse</option>
+            </select>
+          </div>
+          <div class="inputContainer">
+            <label>Product Description</label>
+            <textarea
+              type="text"
+              placeholder="Description for the product"
+              required
+            ></textarea>
+          </div>
+          <div class="inputContainer">
+            <label>Product Date</label>
+            <input
+              class="container"
+              type="date"
+              placeholder="24/07/2024"
+              required
+            />
+          </div>
+          <div class="inputContainer">
+            <label>Status</label>
+            <div class="statusContainer">
+              <div>
+                <input type="radio" name="status" value="Available" checked />
+                Available
+              </div>
+              <div>
+                <input type="radio" name="status" value="Not Available" /> Not
+                Available
+              </div>
+            </div>
+          </div>
+          <div class="inputContainer">
+            <label>Color Options</label>
+            <div class="colorsContainer">
+              <div>
+                <input type="checkbox" value="Red" />
+                <div class="red"></div>
+                <span>Red</span>
+              </div>
+              <div>
+                <input type="checkbox" value="Yellow" />
+                <div class="yellow"></div>
+                <span>Yellow</span>
+              </div>
+              <div>
+                <input type="checkbox" value="Blue" />
+                <div class="blue"></div>
+                <span>Blue</span>
+              </div>
+              <div>
+                <input type="checkbox" value="White" checked />
+                <div class="white"></div>
+                <span>White</span>
+              </div>
+              <div>
+                <input type="checkbox" value="Black" checked />
+                <div class="black"></div>
+                <span>Black</span>
+              </div>
+            </div>
+          </div>
+          <div class="inputContainer">
+            <label>Quantity</label>
+            <input
+              class="container"
+              type="number"
+              min="1"
+              placeholder="1"
+              required
+            />
+          </div>
+          <div class="inputContainer">
+            <label>Price</label>
+            <input
+              class="container"
+              type="number"
+              name="price"
+              placeholder="1000"
+              required
+            />
+          </div>
+          <div class="inputContainer">
+            <label>Amount</label>
+            <input
+              class="container"
+              type="number"
+              name="amount"
+              placeholder="1000"
+              required
+            />
+          </div>
+          <div class="formControls">
+            <button id="cancelBtn" type="reset">Cancel</button>
+            <button id="addBtn" type="submit">Add</button>
+          </div>
+        </form>
       </section>
     </main>
     <script type="module" src="app.js"></script>
