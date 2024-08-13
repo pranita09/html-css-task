@@ -370,3 +370,62 @@ main {
   background-color: #1c1f6d;
   color: #ffffff;
 }
+
+.deleteRecordContainer {
+  width: 350px;
+  border: 1px solid #e1e3e6;
+  box-shadow: 0px 2px 0px 1px #888faa1a;
+  background-color: #ffffff;
+  border-radius: 12px;
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: top 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.deleteRecordContainer.active {
+  top: 8%;
+}
+
+.deleteRecordContainer p:first-of-type {
+  color: #050d26;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.deleteRecordContainer p:nth-of-type(2) {
+  font-weight: 400;
+  font-size: 16px;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.deleteRecordContainer button {
+  box-shadow: 0px 0px 0px 1px #a1a9b829;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#cancelDeleteBtn {
+  background-color: #ffffff;
+  color: #a1a9b8;
+}
+
+#deleteBtn {
+  background-color: #ef4343;
+  color: #ffffff;
+}
+
+.deleteControls {
+  padding: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+  border-top: 1px solid #ebeefa;
+}

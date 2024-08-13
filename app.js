@@ -1,6 +1,6 @@
-const products = [
+let products = [
   {
-    id: "01",
+    id: "1",
     name: "Bluetooth Speaker",
     date: "22/07/2024",
     exchange: true,
@@ -12,7 +12,7 @@ const products = [
       "Portable Bluetooth speaker with powerful sound and vibrant color options.",
   },
   {
-    id: "02",
+    id: "2",
     name: "Wireless Earbuds",
     date: "22/07/2024",
     exchange: false,
@@ -24,7 +24,7 @@ const products = [
       "Comfortable wireless earbuds with high-quality sound and long battery life.",
   },
   {
-    id: "03",
+    id: "3",
     name: "Smartwatch",
     date: "22/07/2024",
     exchange: true,
@@ -36,7 +36,7 @@ const products = [
       "Smartwatch with fitness tracking, notifications, and multiple color bands.",
   },
   {
-    id: "04",
+    id: "4",
     name: "Fitness Tracker",
     date: "23/07/2024",
     exchange: true,
@@ -48,7 +48,7 @@ const products = [
       "Track your daily activities and sleep with this sleek fitness tracker.",
   },
   {
-    id: "05",
+    id: "5",
     name: "Laptop Bag",
     date: "23/07/2024",
     exchange: false,
@@ -60,7 +60,7 @@ const products = [
       "Durable laptop bag with multiple compartments and stylish design.",
   },
   {
-    id: "06",
+    id: "6",
     name: "Gaming Mouse",
     date: "24/07/2024",
     exchange: true,
@@ -72,7 +72,7 @@ const products = [
       "Ergonomic gaming mouse with customizable buttons and high precision.",
   },
   {
-    id: "07",
+    id: "7",
     name: "Wireless Charger",
     date: "24/07/2024",
     exchange: true,
@@ -84,7 +84,7 @@ const products = [
       "Fast wireless charger compatible with multiple devices and sleek design.",
   },
   {
-    id: "08",
+    id: "8",
     name: "Portable Hard Drive",
     date: "24/07/2024",
     exchange: false,
@@ -96,7 +96,7 @@ const products = [
       "High-capacity portable hard drive for secure and convenient data storage.",
   },
   {
-    id: "09",
+    id: "9",
     name: "Smartphone Case",
     date: "25/07/2024",
     exchange: true,
@@ -156,9 +156,10 @@ const products = [
       "Slim and lightweight laptop cooling pad for enhanced airflow.",
   },
 ];
-const rowsPerPage = 6;
+const rowsPerPage = 7;
 let currentPage = 1;
 let totalPages = Math.ceil(products.length / rowsPerPage);
+let productIdToDelete = null;
 
 const table = document.querySelector(".productsTable");
 const addRecordBtn = document.querySelector("#addRecord");
@@ -170,6 +171,32 @@ const addRecordContainer = document.querySelector(".addRecordContainer");
 const form = document.querySelector("form");
 const cancelFormBtn = document.querySelector("#cancelBtn");
 const addBtn = document.querySelector("#addBtn");
+const productNameToDelete = document.querySelector(".productName");
+const deleteRecordContainer = document.querySelector(".deleteRecordContainer");
+const cancelDeleteBtn = document.querySelector("#cancelDeleteBtn");
+const confirmDeleteBtn = document.querySelector("#deleteBtn");
+
+window.openDeleteDrawer = (productId, productName) => {
+  console.log(productId);
+  productIdToDelete = productId;
+  productNameToDelete.textContent = productName;
+  deleteRecordContainer.classList.add("active");
+};
+
+window.closeDeleteDrawer = () => {
+  productIdToDelete = null;
+  deleteRecordContainer.classList.remove("active");
+};
+
+window.deleteProduct = () => {
+  if (productIdToDelete !== null) {
+    products = products.filter(
+      (product) => product.id !== productIdToDelete.toString()
+    );
+    updateTable();
+    closeDeleteDrawer();
+  }
+};
 
 const populateTable = (products) => {
   products.forEach(
@@ -194,7 +221,7 @@ const populateTable = (products) => {
       };
 
       // ID
-      addCell(id);
+      addCell(id < 10 ? "0" + id : id);
 
       // Product Name with Info Icon
       const nameCellContent = name
@@ -224,7 +251,7 @@ const populateTable = (products) => {
       const actionCellContent = `
         <button onclick="alert('Edit product ID: ${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
         <div class="vertical-line"></div>
-        <button onclick="alert('Delete product ID: ${id}')"><img src="./assets/delete.svg" alt="Delete"></button>
+        <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
       `;
       addCell(actionCellContent, true);
 
@@ -308,6 +335,9 @@ addRecordBtn.addEventListener("click", () => {
 cancelFormBtn.addEventListener("click", () => {
   addRecordContainer.classList.remove("active");
 });
+
+cancelDeleteBtn.addEventListener("click", closeDeleteDrawer);
+confirmDeleteBtn.addEventListener("click", deleteProduct);
 
 addBtn.addEventListener("click", addProduct);
 
