@@ -7,6 +7,8 @@
   font-family: "Work Sans", sans-serif;
 }
 
+/* navbar */
+
 .navbar {
   display: flex;
   padding: 1rem 4rem;
@@ -32,6 +34,8 @@
 .userInfo p {
   color: #050d26;
 }
+
+/* stats */
 
 main {
   padding: 1.5rem 4rem 0.5rem 4rem;
@@ -66,4 +70,155 @@ main {
 .stats div p:first-of-type {
   font-size: 2.25rem;
   font-weight: 300;
+}
+
+/* productsNav */
+
+.productDetailsContainer {
+  margin: 1.5rem 0;
+  background: #f4f6fd;
+  border-radius: 1rem;
+}
+
+.productNavbar {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.productNavbar p {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #050d26;
+}
+
+.actionBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleBtns {
+  display: flex;
+}
+
+.toggleBtns button {
+  padding: 0.5rem;
+  border: 1px solid #464f6029;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.toggleBtns button:first-of-type {
+  border-right: 1px solid #464f6029;
+  background: #1b1e6d;
+}
+
+.addRecordBtn {
+  margin-left: 1.5rem;
+  padding: 0.75rem;
+  box-shadow: 0px 0.93px 1.86px 0px #0000000d;
+  border-radius: 5.58px;
+  border: none;
+  background-color: #1b1e6d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  cursor: pointer;
+}
+
+/* productsTable */
+
+.productsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.productsTable td {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: #050d26;
+}
+
+.productsTable th {
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: #1b1e6d;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+}
+
+.productsTable img {
+  margin-left: 0.05rem;
+  vertical-align: middle;
+}
+
+.productsTable button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0.25rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.productsTable button img {
+  margin-right: 0.25rem;
+}
+
+.productsTable td:last-child {
+  display: flex;
+}
+
+.productsTable .vertical-line {
+  height: 1.25rem;
+  width: 1px;
+  background-color: #a1a9b829;
+  margin: 0 0.25rem;
+}
+
+.productsTable tbody tr {
+  border-bottom: 1px solid #bdbdbd;
+}
+
+/* pagination */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 3rem 0 1.5rem 0;
+  color: #050d26;
+}
+
+.paginationBtn {
+  padding: 0.45rem 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #464f6029;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #a1a9b8;
+}
+
+#currentPage {
+  padding: 0.45rem 0.75rem;
+  background-color: #fff;
+  border: 1px solid #464f6029;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #050d26;
 }

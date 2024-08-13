@@ -58,7 +58,53 @@
           </div>
         </div>
       </section>
+      <section class="productDetailsContainer">
+        <div class="productNavbar">
+          <p>Product Details</p>
+          <div class="actionBtns">
+            <div class="toggleBtns">
+              <button>
+                <img alt="" src="./assets/tableViewIcon.svg" />
+              </button>
+              <button>
+                <img alt="" src="./assets/cardViewIcon.svg" />
+              </button>
+            </div>
+            <button class="addRecordBtn">
+              <span>Add Record</span><img alt="" src="./assets/addIcon.svg" />
+            </button>
+          </div>
+        </div>
+        <table class="productsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Product Date</th>
+              <th>Exchange</th>
+              <th>Color Options</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="pagination">
+          <button id="prevBtn" class="paginationBtn" disabled>
+            <img src="./assets/chevronLeft.svg" alt="ChevronLeft" /><span
+              >Previous</span
+            >
+          </button>
+          <span id="currentPage">1</span> of <span id="totalPages">1</span>
+          <button id="nextBtn" class="paginationBtn">
+            <span>Next</span>
+            <img src="./assets/chevronRight.svg" alt="ChevronRight" />
+          </button>
+        </div>
+      </section>
     </main>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
