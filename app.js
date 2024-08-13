@@ -160,6 +160,8 @@ const rowsPerPage = 7;
 let currentPage = 1;
 let totalPages = Math.ceil(products.length / rowsPerPage);
 let productIdToDelete = null;
+let isEditing = false;
+let productIdToEdit = null;
 
 const table = document.querySelector(".productsTable");
 const addRecordBtn = document.querySelector("#addRecord");
@@ -175,6 +177,41 @@ const productNameToDelete = document.querySelector(".productName");
 const deleteRecordContainer = document.querySelector(".deleteRecordContainer");
 const cancelDeleteBtn = document.querySelector("#cancelDeleteBtn");
 const confirmDeleteBtn = document.querySelector("#deleteBtn");
+
+window.openEditDrawer = (productId) => {
+  isEditing = true;
+  productIdToEdit = productId;
+
+  const productToEdit = products.find((product) => product.id === productId);
+
+  if (productToEdit) {
+    document.querySelector(".addRecordTitle").textContent = "Edit Record";
+    addBtn.textContent = "Save";
+
+    form.querySelector('input[placeholder="ID"]').value = productToEdit.id;
+    form.querySelector("select").value = productToEdit.name;
+    form.querySelector("textarea").value = productToEdit.description;
+
+    const [day, month, year] = productToEdit.date.split("/");
+    form.querySelector('input[type="date"]').value = `${year}-${month}-${day}`;
+
+    form.querySelector(
+      `input[name="status"][value="${
+        productToEdit.exchange ? "Available" : "Not Available"
+      }"]`
+    ).checked = true;
+
+    form.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.checked = productToEdit.colorOptions.includes(checkbox.value);
+    });
+
+    form.querySelector('input[placeholder="1"]').value = productToEdit.quantity;
+    form.querySelector('input[name="price"]').value = productToEdit.price;
+    form.querySelector('input[name="amount"]').value = productToEdit.amount;
+
+    addRecordContainer.classList.add("active");
+  }
+};
 
 window.openDeleteDrawer = (productId, productName) => {
   console.log(productId);
@@ -213,26 +250,21 @@ const populateTable = (products) => {
     }) => {
       const row = document.createElement("tr");
 
-      // Create a cell and append it to the row
       const addCell = (content, isHTML = false) => {
         const cell = document.createElement("td");
         isHTML ? (cell.innerHTML = content) : (cell.textContent = content);
         row.appendChild(cell);
       };
 
-      // ID
       addCell(id < 10 ? "0" + id : id);
 
-      // Product Name with Info Icon
       const nameCellContent = name
         ? `${name} <img src="./assets/description.svg" alt="Info" style="cursor: pointer;" onclick="alert('Description: ${description}')">`
         : name;
       addCell(nameCellContent, true);
 
-      // Product Date
       addCell(date);
 
-      // Exchange with Icon
       const exchangeIcon = exchange ? "correctIcon" : "wrongIcon";
       addCell(
         `<img src="./assets/${exchangeIcon}.svg" alt="${
@@ -241,15 +273,12 @@ const populateTable = (products) => {
         true
       );
 
-      // Color Options
       addCell(colorOptions);
 
-      // Price, Quantity, Amount
       [price, quantity, amount].forEach((item) => addCell(item));
 
-      // Action with Edit and Delete Icons
       const actionCellContent = `
-        <button onclick="alert('Edit product ID: ${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
+        <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
         <div class="vertical-line"></div>
         <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
       `;
@@ -263,11 +292,14 @@ const populateTable = (products) => {
 const addProduct = (e) => {
   e.preventDefault();
 
-  // values from the form
   const id = form.querySelector('input[placeholder="ID"]').value;
   const name = form.querySelector("select").value;
   const description = form.querySelector("textarea").value;
-  const date = form.querySelector('input[type="date"]').value;
+  const date = form
+    .querySelector('input[type="date"]')
+    .value.split("-")
+    .reverse()
+    .join("/");
   const status = form.querySelector('input[name="status"]:checked').value;
   const colors = Array.from(
     form.querySelectorAll('input[type="checkbox"]:checked')
@@ -276,8 +308,7 @@ const addProduct = (e) => {
   const price = form.querySelector('input[name="price"]').value;
   const amount = form.querySelector('input[name="amount"]').value;
 
-  // new product object
-  const newProduct = {
+  const productData = {
     id,
     name,
     description,
@@ -289,10 +320,24 @@ const addProduct = (e) => {
     amount: parseFloat(amount),
   };
 
-  products.push(newProduct);
+  if (isEditing) {
+    const productIndex = products.findIndex(
+      (product) => product.id === productIdToEdit.toString()
+    );
+    if (productIndex !== -1) {
+      products[productIndex] = productData;
+    }
+    isEditing = false;
+    productIdToEdit = null;
+  } else {
+    products.push(productData);
+  }
 
   form.reset();
   addRecordContainer.classList.remove("active");
+
+  document.querySelector(".addRecordTitle").textContent = "Add New Record";
+  addBtn.textContent = "Add";
 
   updateTable();
 };
@@ -333,6 +378,8 @@ addRecordBtn.addEventListener("click", () => {
 });
 
 cancelFormBtn.addEventListener("click", () => {
+  document.querySelector(".addRecordTitle").textContent = "Add New Record";
+  addBtn.textContent = "Add";
   addRecordContainer.classList.remove("active");
 });
 
