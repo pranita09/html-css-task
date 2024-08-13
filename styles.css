@@ -85,7 +85,6 @@ main {
 
 .graphContainer {
   width: 70%;
-  /* height: 200px; */
   background: #f4f6fd;
   border-radius: 1rem;
   padding: 1rem;
@@ -246,13 +245,24 @@ main {
   padding: 0.45rem 0.25rem;
 }
 
-.productNamesForGraph div {
+.productNamesForChart {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.productNamesForGraph div,
+.productNamesForChart div {
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
-.productNamesForGraph div div {
+.productNamesForGraph div div,
+.productNamesForChart div div {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -267,7 +277,24 @@ main {
   background-color: #1b1e6d;
 }
 
-.productNamesForGraph div p {
+.productNamesForChart .productOne {
+  background: #1b1e6d;
+}
+
+.productNamesForChart .productTwo {
+  background: #14cdc8;
+}
+
+.productNamesForChart .productThree {
+  background: #f9d100;
+}
+
+.productNamesForChart .productFour {
+  background: #ff6d6d;
+}
+
+.productNamesForGraph div p,
+.productNamesForChart div p {
   font-size: 14px;
   font-weight: 400;
   color: #050d26;
@@ -275,9 +302,43 @@ main {
 
 .circularChart {
   width: 30%;
-  height: 200px;
   background: #f4f6fd;
   border-radius: 1rem;
+  padding: 1rem;
+}
+
+.circularChart .graphHeader p {
+  padding: 0.3rem 0;
+}
+
+.circularChart .chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.circleContainer {
+  position: relative;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #14cdc8 0% 15%,
+    #f9d100 15% 50%,
+    #ff6d6d 50% 75%,
+    #1b1e6d 75% 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.innerCircle {
+  width: 135px;
+  height: 135px;
+  background-color: #fff;
+  border-radius: 50%;
 }
 
 /* productsNav */
