@@ -156,7 +156,8 @@ let products = [
       "Slim and lightweight laptop cooling pad for enhanced airflow.",
   },
 ];
-const rowsPerPage = 7;
+let isTableView = true;
+const rowsPerPage = 8;
 let currentPage = 1;
 let totalPages = Math.ceil(products.length / rowsPerPage);
 let productIdToDelete = null;
@@ -177,6 +178,23 @@ const productNameToDelete = document.querySelector(".productName");
 const deleteRecordContainer = document.querySelector(".deleteRecordContainer");
 const cancelDeleteBtn = document.querySelector("#cancelDeleteBtn");
 const confirmDeleteBtn = document.querySelector("#deleteBtn");
+const productsTable = document.querySelector(".productsTable");
+const productsCards = document.querySelector(".productsCards");
+const toggleBtns = document.querySelectorAll(".toggleBtns button");
+const tableViewBtn = toggleBtns[0];
+const cardsViewBtn = toggleBtns[1];
+const userInfo = document.querySelector(".userInfo");
+const dropdownMenu = document.querySelector("#dropdownMenu");
+
+const toggleDropdown = () => {
+  dropdownMenu.style.display =
+    dropdownMenu.style.display === "block" ? "none" : "block";
+};
+
+userInfo.addEventListener("click", (event) => {
+  toggleDropdown();
+  event.stopPropagation();
+});
 
 window.openEditDrawer = (productId) => {
   isEditing = true;
@@ -394,17 +412,139 @@ const toggleTooltip = (event, tooltipId) => {
   }
 };
 
+const renderCards = (products) => {
+  productsCards.innerHTML = "";
+  products.forEach(
+    ({
+      name,
+      id,
+      description,
+      price,
+      quantity,
+      amount,
+      date,
+      exchange,
+      colorOptions,
+    }) => {
+      const card = document.createElement("div");
+      card.classList.add("productCard");
+      card.innerHTML = `
+        <div class="cardHeader">
+            <p>${name}<span class="tooltipContainer">
+            <img
+              src="./assets/description.svg"
+              alt="Info"
+              class="infoIcon"
+              onclick="toggleTooltip(event, 'description-${id}')"
+            >
+            <div id="description-${id}" class="tooltip">
+                <p class="descHeader">Product Description</p>
+              <p>${description}</p>
+              <div class="tooltipArrow"></div>
+            </div>
+          </span></p>
+            <div>
+                <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
+                <div class="vertical-line"></div>
+                <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
+            </div>
+        </div>
+        <div class="infoRow">
+            <div class="productData">
+                <p class="dataTitle">ID</p>
+                <p class="data">${id}</p>
+            </div>
+            <div class="productData">
+                <p class="dataTitle">Product Date</p>
+                <p class="data">${date}</p>
+            </div>
+        </div>
+        <div class="infoRow">
+            <div class="productData">
+                <p class="dataTitle">Status</p>
+                <p class="data">${
+                  exchange
+                    ? `<img src="./assets/correctIcon.svg" alt="correctIcon" />`
+                    : `<img src="./assets/wrongIcon.svg" alt="wrongIcon" />`
+                }</p>
+            </div>
+            <div class="productData">
+                <p class="dataTitle">Color Options</p>
+                <p class="data">${colorOptions}</p>
+            </div>
+        </div>
+        <div class="infoRow">
+            <div class="productData">
+                <p class="dataTitle">Quantity</p>
+                <p class="data">${quantity}</p>
+            </div>
+            <div class="productData">
+                <p class="dataTitle">Price</p>
+                <p class="data">${price}</p>
+            </div>
+        </div>
+        <div class="infoRow">
+            <div class="productData">
+                <p class="dataTitle">Amount</p>
+                <p class="data">${amount}</p>
+            </div>
+        </div>
+      `;
+      productsCards.appendChild(card);
+    }
+  );
+};
+
+const toggleView = (view) => {
+  toggleBtns.forEach((btn) => btn.classList.remove("active"));
+
+  if (view === "table") {
+    tableViewBtn.classList.add("active");
+    table.style.display = "table";
+    productsCards.style.display = "none";
+  } else {
+    cardsViewBtn.classList.add("active");
+    table.style.display = "none";
+    productsCards.style.display = "flex";
+    updateCards();
+  }
+};
+
+const updateCards = () => {
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const paginatedProducts = products.slice(start, end);
+  renderCards(paginatedProducts);
+
+  currentPageEle.textContent = currentPage;
+  totalPagesEle.textContent = totalPages;
+
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
+};
+
+tableViewBtn.addEventListener("click", () => toggleView("table"));
+cardsViewBtn.addEventListener("click", () => toggleView("cards"));
+
 prevBtn.onclick = () => {
   if (currentPage > 1) {
     currentPage--;
-    updateTable();
+    if (table.style.display === "table") {
+      updateTable();
+    } else {
+      updateCards();
+    }
   }
 };
 
 nextBtn.onclick = () => {
   if (currentPage < totalPages) {
     currentPage++;
-    updateTable();
+    if (table.style.display === "table") {
+      updateTable();
+    } else {
+      updateCards();
+    }
   }
 };
 
@@ -433,4 +573,15 @@ document.addEventListener("click", (event) => {
   }
 });
 
+// Hide dropdown menu when clicking outside
+document.addEventListener("click", (event) => {
+  if (
+    dropdownMenu.style.display === "block" &&
+    !userInfo.contains(event.target)
+  ) {
+    dropdownMenu.style.display = "none";
+  }
+});
+
+toggleView("table"); // Initialize table view as active
 updateTable(); // Initialize table with the first page

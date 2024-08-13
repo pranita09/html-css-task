@@ -29,10 +29,44 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
 .userInfo p {
   color: #050d26;
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: #fff;
+  color: #050d26;
+  font-weight: 400;
+  font-size: 16px;
+  border: 1px solid #e1e3e6;
+  border-radius: 6px;
+  box-shadow: 0px 2px 0px 1px #888faa1a;
+  padding: 8px 6px;
+}
+
+.dropdownMenu ul {
+  list-style: none;
+  margin: 0;
+}
+
+.dropdownMenu ul li {
+  padding: 6px 10px;
+}
+
+.dropdownMenu ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdownMenu ul li:hover {
+  background-color: #f0f0f0;
 }
 
 /* stats */
@@ -218,9 +252,16 @@ main {
   position: absolute;
   width: 8px;
   height: 8px;
-  background: #1b1e6d;
   border-radius: 50%;
   transform: translate(-50%, -50%);
+}
+
+.pointsForProductTwo .point {
+  background: #1b1e6d;
+}
+
+.pointsForProductOne .point {
+  background: #14cdc8;
 }
 
 .line-path {
@@ -354,6 +395,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 2px 4px 0px #00000014;
 }
 
 .productNavbar p {
@@ -379,9 +421,14 @@ main {
   cursor: pointer;
 }
 
+.toggleBtns button.active {
+  background: #1b1e6d;
+  color: white;
+}
+
 .toggleBtns button:first-of-type {
   border-right: 1px solid #464f6029;
-  background: #1b1e6d;
+  /* background: #1b1e6d; */
 }
 
 .addRecordBtn {
@@ -751,4 +798,85 @@ main {
 .tooltipContainer:hover .tooltip {
   visibility: visible;
   opacity: 1;
+}
+
+/* cards view */
+
+.productsCards {
+  display: none;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.productCard {
+  width: calc(25% - 20px); /* 4 cards per row with spacing */
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 16px;
+  box-shadow: 0px 1px 2px 0px #0000000f;
+  background-color: #fff;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeader p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  color: #1b1e6d;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cardHeader div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardHeader div .vartical-line {
+  height: 1.25rem;
+  width: 1px;
+  background-color: #a1a9b829;
+  margin: 0 0.25rem;
+}
+
+.cardHeader div button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 0.25rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.infoRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem 0;
+}
+
+.productData {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dataTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #a1a9b8;
+}
+
+.data {
+  font-size: 14px;
+  font-weight: 400;
+  color: #050d26;
 }
