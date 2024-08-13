@@ -259,7 +259,22 @@ const populateTable = (products) => {
       addCell(id < 10 ? "0" + id : id);
 
       const nameCellContent = name
-        ? `${name} <img src="./assets/description.svg" alt="Info" style="cursor: pointer;" onclick="alert('Description: ${description}')">`
+        ? `
+          ${name}
+          <span class="tooltipContainer">
+            <img
+              src="./assets/description.svg"
+              alt="Info"
+              class="infoIcon"
+              onclick="toggleTooltip(event, 'description-${id}')"
+            >
+            <div id="description-${id}" class="tooltip">
+                <p class="descHeader">Product Description</p>
+              <p>${description}</p>
+              <div class="tooltipArrow"></div>
+            </div>
+          </span>
+        `
         : name;
       addCell(nameCellContent, true);
 
@@ -359,6 +374,26 @@ const updateTable = () => {
   nextBtn.disabled = currentPage === totalPages;
 };
 
+const toggleTooltip = (event, tooltipId) => {
+  event.stopPropagation();
+
+  const tooltip = document.getElementById(tooltipId);
+  const isVisible = tooltip.style.visibility === "visible";
+
+  document.querySelectorAll(".tooltip").forEach((el) => {
+    el.style.visibility = "hidden";
+    el.style.opacity = "0";
+  });
+
+  if (isVisible) {
+    tooltip.style.visibility = "hidden";
+    tooltip.style.opacity = "0";
+  } else {
+    tooltip.style.visibility = "visible";
+    tooltip.style.opacity = "1";
+  }
+};
+
 prevBtn.onclick = () => {
   if (currentPage > 1) {
     currentPage--;
@@ -387,5 +422,15 @@ cancelDeleteBtn.addEventListener("click", closeDeleteDrawer);
 confirmDeleteBtn.addEventListener("click", deleteProduct);
 
 addBtn.addEventListener("click", addProduct);
+
+// Hide the tooltip when clicking outside of it
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".tooltipContainer")) {
+    document.querySelectorAll(".tooltip").forEach((tooltip) => {
+      tooltip.style.visibility = "hidden";
+      tooltip.style.opacity = "0";
+    });
+  }
+});
 
 updateTable(); // Initialize table with the first page
