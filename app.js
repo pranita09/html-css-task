@@ -392,10 +392,10 @@ const updateTable = () => {
   nextBtn.disabled = currentPage === totalPages;
 };
 
-const toggleTooltip = (event, tooltipId) => {
+window.toggleTooltip = (event, tooltipId) => {
   event.stopPropagation();
 
-  const tooltip = document.getElementById(tooltipId);
+  const tooltip = document.querySelector(`#${tooltipId}`);
   const isVisible = tooltip.style.visibility === "visible";
 
   document.querySelectorAll(".tooltip").forEach((el) => {
@@ -445,7 +445,7 @@ const renderCards = (products) => {
           </span></p>
             <div>
                 <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
-                <div class="vertical-line"></div>
+                <div class="verticalLine" style="height: 1.25rem; width: 1px; background-color: #a1a9b829";></div>
                 <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
             </div>
         </div>
