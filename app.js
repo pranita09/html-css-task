@@ -64,7 +64,7 @@ let products = [
     name: "Gaming Mouse",
     date: "24/07/2024",
     exchange: true,
-    colorOptions: "Black White",
+    colorOptions: "Black, White",
     price: 1500,
     quantity: 1,
     amount: 1500,
@@ -185,6 +185,9 @@ const tableViewBtn = toggleBtns[0];
 const cardsViewBtn = toggleBtns[1];
 const userInfo = document.querySelector(".userInfo");
 const dropdownMenu = document.querySelector("#dropdownMenu");
+const options = document.querySelectorAll(".graphOptions p");
+const revenueGraph = document.querySelector(".revenueGraph");
+const lossGraph = document.querySelector(".lossGraph");
 
 const toggleDropdown = () => {
   dropdownMenu.style.display =
@@ -452,7 +455,7 @@ const renderCards = (products) => {
         <div class="infoRow">
             <div class="productData">
                 <p class="dataTitle">ID</p>
-                <p class="data">${id}</p>
+                <p class="data">${id < 10 ? "0" + id : id}</p>
             </div>
             <div class="productData">
                 <p class="dataTitle">Product Date</p>
@@ -585,3 +588,123 @@ document.addEventListener("click", (event) => {
 
 toggleView("table"); // Initialize table view as active
 updateTable(); // Initialize table with the first page
+
+options.forEach((option) => {
+  option.addEventListener("click", () => {
+    options.forEach((opt) => opt.classList.remove("selected"));
+    option.classList.add("selected");
+
+    if (option.textContent === "Revenue") {
+      revenueGraph.style.display = "block";
+      lossGraph.style.display = "none";
+    } else if (option.textContent === "Losses") {
+      revenueGraph.style.display = "none";
+      lossGraph.style.display = "block";
+    }
+  });
+});
+
+const xValues = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const yValues = [0, 3, 6, 9, 12, 15];
+
+new Chart("revenueChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [
+      {
+        data: [6.5, 9.5, 6, 4.5, 6, 5.5, 9],
+        borderColor: "#1b1e6d",
+        backgroundColor: "#1B1E6D4D",
+        fill: true,
+      },
+      {
+        data: [15, 11, 12.5, 10, 13, 8.5, 15],
+        borderColor: "#14cdc8",
+        backgroundColor: "#14CDC84D",
+        fill: true,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: true,
+        },
+      },
+      y: {
+        grid: {
+          drawBorder: false,
+          display: false,
+        },
+        min: Math.min(...yValues),
+        max: Math.max(...yValues),
+        ticks: {
+          stepSize: 3,
+          callback: function (value) {
+            if (yValues.includes(value)) {
+              return value + "M";
+            }
+            return "";
+          },
+        },
+      },
+    },
+    legend: { display: false },
+  },
+});
+
+new Chart("lossChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [
+      {
+        data: [6.5, 9.5, 6, 4.5, 6, 5.5, 9],
+        borderColor: "#FF6D6D",
+        backgroundColor: "#FF6D6D4D",
+        fill: true,
+      },
+      {
+        data: [15, 11, 12.5, 10, 13, 8.5, 15],
+        borderColor: "#F9D100",
+        backgroundColor: "#F9D1004D",
+        fill: true,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: true,
+        },
+      },
+      y: {
+        grid: {
+          drawBorder: false,
+          display: false,
+        },
+        min: Math.min(...yValues),
+        max: Math.max(...yValues),
+        ticks: {
+          stepSize: 3,
+          callback: function (value) {
+            if (yValues.includes(value)) {
+              return value + "M";
+            }
+            return "";
+          },
+        },
+      },
+    },
+    legend: { display: false },
+  },
+});
