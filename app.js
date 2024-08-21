@@ -1,6 +1,6 @@
 let products = [
   {
-    id: "1",
+    id: "01",
     name: "Bluetooth Speaker",
     date: "22/07/2024",
     exchange: true,
@@ -12,7 +12,7 @@ let products = [
       "Portable Bluetooth speaker with powerful sound and vibrant color options.",
   },
   {
-    id: "2",
+    id: "02",
     name: "Wireless Earbuds",
     date: "22/07/2024",
     exchange: false,
@@ -24,7 +24,7 @@ let products = [
       "Comfortable wireless earbuds with high-quality sound and long battery life.",
   },
   {
-    id: "3",
+    id: "03",
     name: "Smartwatch",
     date: "22/07/2024",
     exchange: true,
@@ -36,7 +36,7 @@ let products = [
       "Smartwatch with fitness tracking, notifications, and multiple color bands.",
   },
   {
-    id: "4",
+    id: "04",
     name: "Fitness Tracker",
     date: "23/07/2024",
     exchange: true,
@@ -48,7 +48,7 @@ let products = [
       "Track your daily activities and sleep with this sleek fitness tracker.",
   },
   {
-    id: "5",
+    id: "05",
     name: "Laptop Bag",
     date: "23/07/2024",
     exchange: false,
@@ -60,7 +60,7 @@ let products = [
       "Durable laptop bag with multiple compartments and stylish design.",
   },
   {
-    id: "6",
+    id: "06",
     name: "Gaming Mouse",
     date: "24/07/2024",
     exchange: true,
@@ -72,7 +72,7 @@ let products = [
       "Ergonomic gaming mouse with customizable buttons and high precision.",
   },
   {
-    id: "7",
+    id: "07",
     name: "Wireless Charger",
     date: "24/07/2024",
     exchange: true,
@@ -84,7 +84,7 @@ let products = [
       "Fast wireless charger compatible with multiple devices and sleek design.",
   },
   {
-    id: "8",
+    id: "08",
     name: "Portable Hard Drive",
     date: "24/07/2024",
     exchange: false,
@@ -96,7 +96,7 @@ let products = [
       "High-capacity portable hard drive for secure and convenient data storage.",
   },
   {
-    id: "9",
+    id: "09",
     name: "Smartphone Case",
     date: "25/07/2024",
     exchange: true,
@@ -188,6 +188,14 @@ const dropdownMenu = document.querySelector("#dropdownMenu");
 const options = document.querySelectorAll(".graphOptions p");
 const revenueGraph = document.querySelector(".revenueGraph");
 const lossGraph = document.querySelector(".lossGraph");
+const backdropForDelete = document.querySelector(".backdropForDelete");
+const backdropForForm = document.querySelector(".backdropForForm");
+const idInput = document.querySelector("#idInput");
+const descInput = document.querySelector("#descInput");
+const dateInput = document.querySelector("#dateInput");
+const qtyInput = document.querySelector("#qtyInput");
+const priceInput = document.querySelector("#priceInput");
+const amountInput = document.querySelector("#amountInput");
 
 const toggleDropdown = () => {
   dropdownMenu.style.display =
@@ -231,20 +239,27 @@ window.openEditDrawer = (productId) => {
     form.querySelector('input[name="amount"]').value = productToEdit.amount;
 
     addRecordContainer.classList.add("active");
+    backdropForForm.style.display = "block";
+    form.scrollTop = 0;
   }
 };
 
 window.openDeleteDrawer = (productId, productName) => {
-  console.log(productId);
+  backdropForDelete.style.display = "block";
+  deleteRecordContainer.style.display = "block";
   productIdToDelete = productId;
   productNameToDelete.textContent = productName;
-  deleteRecordContainer.classList.add("active");
 };
 
 window.closeDeleteDrawer = () => {
   productIdToDelete = null;
-  deleteRecordContainer.classList.remove("active");
+  deleteRecordContainer.style.display = "none";
+  backdropForDelete.style.display = "none";
 };
+
+backdropForDelete.addEventListener("click", () => {
+  closeDeleteDrawer();
+});
 
 window.deleteProduct = () => {
   if (productIdToDelete !== null) {
@@ -277,11 +292,11 @@ const populateTable = (products) => {
         row.appendChild(cell);
       };
 
-      addCell(id < 10 ? "0" + id : id);
+      addCell(id);
 
       const nameCellContent = name
-        ? `
-          ${name}
+        ? `<p class="productNameForTable">
+          <span>${name}</span>
           <span class="tooltipContainer">
             <img
               src="./assets/description.svg"
@@ -294,7 +309,7 @@ const populateTable = (products) => {
               <p>${description}</p>
               <div class="tooltipArrow"></div>
             </div>
-          </span>
+          </span></p>
         `
         : name;
       addCell(nameCellContent, true);
@@ -371,6 +386,7 @@ const addProduct = (e) => {
 
   form.reset();
   addRecordContainer.classList.remove("active");
+  backdropForForm.style.display = "none";
 
   document.querySelector(".addRecordTitle").textContent = "Add New Record";
   addBtn.textContent = "Add";
@@ -399,19 +415,21 @@ window.toggleTooltip = (event, tooltipId) => {
   event.stopPropagation();
 
   const tooltip = document.querySelector(`#${tooltipId}`);
-  const isVisible = tooltip.style.visibility === "visible";
-
-  document.querySelectorAll(".tooltip").forEach((el) => {
-    el.style.visibility = "hidden";
-    el.style.opacity = "0";
-  });
+  const isVisible = tooltip.dataset.visible === "true";
 
   if (isVisible) {
     tooltip.style.visibility = "hidden";
     tooltip.style.opacity = "0";
+    tooltip.dataset.visible = "false";
   } else {
+    document.querySelectorAll(".tooltip").forEach((el) => {
+      el.style.visibility = "hidden";
+      el.style.opacity = "0";
+      el.dataset.visible = "false";
+    });
     tooltip.style.visibility = "visible";
     tooltip.style.opacity = "1";
+    tooltip.dataset.visible = "true";
   }
 };
 
@@ -455,7 +473,7 @@ const renderCards = (products) => {
         <div class="infoRow">
             <div class="productData">
                 <p class="dataTitle">ID</p>
-                <p class="data">${id < 10 ? "0" + id : id}</p>
+                <p class="data">${id}</p>
             </div>
             <div class="productData">
                 <p class="dataTitle">Product Date</p>
@@ -526,12 +544,27 @@ const updateCards = () => {
   nextBtn.disabled = currentPage === totalPages;
 };
 
+const updatePagination = () => {
+  if (currentPage === 1) {
+    prevBtn.disabled = true;
+  } else {
+    prevBtn.disabled = false;
+  }
+
+  if (currentPage === totalPages) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.disabled = false;
+  }
+};
+
 tableViewBtn.addEventListener("click", () => toggleView("table"));
 cardsViewBtn.addEventListener("click", () => toggleView("cards"));
 
 prevBtn.onclick = () => {
   if (currentPage > 1) {
     currentPage--;
+    updatePagination();
     if (table.style.display === "table") {
       updateTable();
     } else {
@@ -543,6 +576,7 @@ prevBtn.onclick = () => {
 nextBtn.onclick = () => {
   if (currentPage < totalPages) {
     currentPage++;
+    updatePagination();
     if (table.style.display === "table") {
       updateTable();
     } else {
@@ -551,14 +585,33 @@ nextBtn.onclick = () => {
   }
 };
 
+const defaultInputs = () => {
+  idInput.value = "14";
+  descInput.value = "This is dummy description. Add specific description.";
+  const today = new Date().toISOString().split("T")[0];
+  dateInput.value = today;
+  qtyInput.value = 1;
+  priceInput.value = 1000;
+  amountInput.value = qtyInput.value * priceInput.value;
+};
+
 addRecordBtn.addEventListener("click", () => {
   addRecordContainer.classList.toggle("active");
+  backdropForForm.style.display = "block";
+  form.scrollTop = 0;
+  defaultInputs();
 });
 
 cancelFormBtn.addEventListener("click", () => {
   document.querySelector(".addRecordTitle").textContent = "Add New Record";
   addBtn.textContent = "Add";
   addRecordContainer.classList.remove("active");
+  backdropForForm.style.display = "none";
+});
+
+backdropForForm.addEventListener("click", () => {
+  addRecordContainer.classList.remove("active");
+  backdropForForm.style.display = "none";
 });
 
 cancelDeleteBtn.addEventListener("click", closeDeleteDrawer);
@@ -572,6 +625,7 @@ document.addEventListener("click", (event) => {
     document.querySelectorAll(".tooltip").forEach((tooltip) => {
       tooltip.style.visibility = "hidden";
       tooltip.style.opacity = "0";
+      tooltip.dataset.visible = "false";
     });
   }
 });
@@ -588,6 +642,7 @@ document.addEventListener("click", (event) => {
 
 toggleView("table"); // Initialize table view as active
 updateTable(); // Initialize table with the first page
+updatePagination();
 
 options.forEach((option) => {
   option.addEventListener("click", () => {
@@ -707,4 +762,30 @@ new Chart("lossChart", {
     },
     legend: { display: false },
   },
+});
+
+const doughnutData = {
+  labels: ["Product 2", "Product 3", "Product 4", "Product 1"],
+  datasets: [
+    {
+      data: [15, 35, 25, 25],
+      backgroundColor: ["#14cdc8", "#f9d100", "#ff6d6d", "#1b1e6d"],
+      hoverBackgroundColor: ["#14cdc8", "#f9d100", "#ff6d6d", "#1b1e6d"],
+    },
+  ],
+};
+
+const doughnutOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  cutout: "70%",
+  legend: {
+    display: false,
+  },
+};
+
+new Chart(document.getElementById("doughnutChart"), {
+  type: "doughnut",
+  data: doughnutData,
+  options: doughnutOptions,
 });
