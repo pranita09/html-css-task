@@ -777,7 +777,7 @@ const doughnutData = {
 
 const doughnutOptions = {
   responsive: true,
-  maintainAspectRatio: false,
+  //   maintainAspectRatio: false,
   cutout: "70%",
   legend: {
     display: false,

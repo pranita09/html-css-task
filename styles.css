@@ -89,9 +89,8 @@ main {
 }
 
 .statsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
@@ -105,6 +104,7 @@ main {
   justify-content: center;
   gap: 5.5rem;
   border-radius: 1rem;
+  margin-top: 0.5rem;
 }
 
 .stats div:first-of-type {
@@ -127,7 +127,7 @@ main {
   margin: 1.5rem 0;
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 2rem;
 }
@@ -594,6 +594,7 @@ main {
   color: #1f2937;
   padding: 0 4px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .inputContainer .priceContainer,
@@ -623,6 +624,7 @@ main {
 #idInput {
   border: none;
   margin-bottom: 0;
+  background-color: #fff;
 }
 
 #qtyInput {
