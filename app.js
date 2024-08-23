@@ -608,7 +608,8 @@ const updateAmount = () => {
 };
 
 const defaultInputs = () => {
-  idInput.value = `${products.length + 1}`;
+  //   idInput.value = `${products.length + 1}`;
+  idInput.value = "14";
   descInput.value = "This is dummy description. Add specific description.";
   const today = new Date().toISOString().split("T")[0];
   dateInput.value = today;
