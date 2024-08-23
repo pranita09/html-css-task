@@ -196,6 +196,8 @@ const dateInput = document.querySelector("#dateInput");
 const qtyInput = document.querySelector("#qtyInput");
 const priceInput = document.querySelector("#priceInput");
 const amountInput = document.querySelector("#amountInput");
+const increaseQty = document.querySelector("#increaseQty");
+const decreaseQty = document.querySelector("#decreaseQty");
 
 const toggleDropdown = () => {
   dropdownMenu.style.display =
@@ -217,12 +219,12 @@ window.openEditDrawer = (productId) => {
     document.querySelector(".addRecordTitle").textContent = "Edit Record";
     addBtn.textContent = "Save";
 
-    form.querySelector('input[placeholder="ID"]').value = productToEdit.id;
+    idInput.value = productToEdit.id;
     form.querySelector("select").value = productToEdit.name;
-    form.querySelector("textarea").value = productToEdit.description;
+    descInput.value = productToEdit.description;
 
     const [day, month, year] = productToEdit.date.split("/");
-    form.querySelector('input[type="date"]').value = `${year}-${month}-${day}`;
+    dateInput.value = `${year}-${month}-${day}`;
 
     form.querySelector(
       `input[name="status"][value="${
@@ -234,9 +236,13 @@ window.openEditDrawer = (productId) => {
       checkbox.checked = productToEdit.colorOptions.includes(checkbox.value);
     });
 
-    form.querySelector('input[placeholder="1"]').value = productToEdit.quantity;
-    form.querySelector('input[name="price"]').value = productToEdit.price;
-    form.querySelector('input[name="amount"]').value = productToEdit.amount;
+    qtyInput.value = productToEdit.quantity;
+    priceInput.value = productToEdit.price;
+    amountInput.value = productToEdit.amount;
+
+    dateInput.removeAttribute("min");
+
+    updateAmount();
 
     addRecordContainer.classList.add("active");
     backdropForForm.style.display = "block";
@@ -343,21 +349,17 @@ const populateTable = (products) => {
 const addProduct = (e) => {
   e.preventDefault();
 
-  const id = form.querySelector('input[placeholder="ID"]').value;
+  const id = idInput.value;
   const name = form.querySelector("select").value;
-  const description = form.querySelector("textarea").value;
-  const date = form
-    .querySelector('input[type="date"]')
-    .value.split("-")
-    .reverse()
-    .join("/");
+  const description = descInput.value;
+  const date = dateInput.value.split("-").reverse().join("/");
   const status = form.querySelector('input[name="status"]:checked').value;
   const colors = Array.from(
     form.querySelectorAll('input[type="checkbox"]:checked')
   ).map((checkbox) => checkbox.value);
-  const quantity = form.querySelector('input[placeholder="1"]').value;
-  const price = form.querySelector('input[name="price"]').value;
-  const amount = form.querySelector('input[name="amount"]').value;
+  const quantity = qtyInput.value;
+  const price = priceInput.value;
+  const amount = amountInput.value;
 
   const productData = {
     id,
@@ -392,6 +394,7 @@ const addProduct = (e) => {
   addBtn.textContent = "Add";
 
   updateTable();
+  document.body.style.overflow = "";
 };
 
 const updateTable = () => {
@@ -526,7 +529,7 @@ const toggleView = (view) => {
   } else {
     cardsViewBtn.classList.add("active");
     table.style.display = "none";
-    productsCards.style.display = "flex";
+    productsCards.style.display = "grid";
     updateCards();
   }
 };
@@ -585,11 +588,27 @@ nextBtn.onclick = () => {
   }
 };
 
+const updateAmount = () => {
+  const quantity = parseInt(qtyInput.value, 10);
+  const price = parseFloat(priceInput.value);
+  const amount = quantity * price;
+  amountInput.value = amount;
+
+  if (quantity <= 1) {
+    decreaseQty.disabled = true;
+    decreaseQty.style.cursor = "not-allowed";
+  } else {
+    decreaseQty.disabled = false;
+    decreaseQty.style.cursor = "pointer";
+  }
+};
+
 const defaultInputs = () => {
   idInput.value = "14";
   descInput.value = "This is dummy description. Add specific description.";
   const today = new Date().toISOString().split("T")[0];
   dateInput.value = today;
+  dateInput.setAttribute("min", today);
   qtyInput.value = 1;
   priceInput.value = 1000;
   amountInput.value = qtyInput.value * priceInput.value;
@@ -600,6 +619,7 @@ addRecordBtn.addEventListener("click", () => {
   backdropForForm.style.display = "block";
   form.scrollTop = 0;
   defaultInputs();
+  document.body.style.overflow = "hidden";
 });
 
 cancelFormBtn.addEventListener("click", () => {
@@ -607,11 +627,13 @@ cancelFormBtn.addEventListener("click", () => {
   addBtn.textContent = "Add";
   addRecordContainer.classList.remove("active");
   backdropForForm.style.display = "none";
+  document.body.style.overflow = "";
 });
 
 backdropForForm.addEventListener("click", () => {
   addRecordContainer.classList.remove("active");
   backdropForForm.style.display = "none";
+  document.body.style.overflow = "";
 });
 
 cancelDeleteBtn.addEventListener("click", closeDeleteDrawer);
@@ -640,6 +662,10 @@ document.addEventListener("click", (event) => {
   }
 });
 
+priceInput.addEventListener("input", updateAmount);
+
+// Initial calculation for when the form is loaded
+updateAmount();
 toggleView("table"); // Initialize table view as active
 updateTable(); // Initialize table with the first page
 updatePagination();
@@ -788,4 +814,18 @@ new Chart(document.getElementById("doughnutChart"), {
   type: "doughnut",
   data: doughnutData,
   options: doughnutOptions,
+});
+
+increaseQty.addEventListener("click", () => {
+  let quantity = parseInt(qtyInput.value, 10) || 1;
+  qtyInput.value = quantity + 1;
+  updateAmount();
+});
+
+decreaseQty.addEventListener("click", () => {
+  let quantity = parseInt(qtyInput.value, 10) || 1;
+  if (quantity > 1) {
+    qtyInput.value = quantity - 1;
+    updateAmount();
+  }
 });
