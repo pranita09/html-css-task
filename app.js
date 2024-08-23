@@ -198,6 +198,14 @@ const priceInput = document.querySelector("#priceInput");
 const amountInput = document.querySelector("#amountInput");
 const increaseQty = document.querySelector("#increaseQty");
 const decreaseQty = document.querySelector("#decreaseQty");
+const idError = document.querySelector("#idError");
+const nameError = document.querySelector("#nameError");
+const descError = document.querySelector("#descError");
+const dateError = document.querySelector("#dateError");
+const statusError = document.querySelector("#statusError");
+const colorError = document.querySelector("#colorError");
+const qtyError = document.querySelector("#qtyError");
+const priceError = document.querySelector("#priceError");
 
 const toggleDropdown = () => {
   dropdownMenu.style.display =
@@ -348,8 +356,85 @@ const populateTable = (products) => {
   );
 };
 
+const validateForm = () => {
+  let isValid = true;
+
+  if (!idInput.value.trim()) {
+    isValid = false;
+    idError.textContent = "ID is required.";
+  } else {
+    idError.textContent = "";
+  }
+
+  const name = form.querySelector("select").value;
+  if (!name.trim()) {
+    isValid = false;
+    nameError.textContent = "Product Name is required.";
+  } else {
+    nameError.textContent = "";
+  }
+
+  if (!descInput.value.trim()) {
+    isValid = false;
+    descError.textContent = "Description is required.";
+  } else {
+    descError.textContent = "";
+  }
+
+  if (!dateInput.value.trim()) {
+    isValid = false;
+    dateError.textContent = "Date is required.";
+  } else {
+    dateError.textContent = "";
+  }
+
+  const status = form.querySelector('input[name="status"]:checked');
+  if (!status) {
+    isValid = false;
+    statusError.textContent = "Status is required.";
+  } else {
+    statusError.textContent = "";
+  }
+
+  const colors = Array.from(
+    form.querySelectorAll('input[type="checkbox"]:checked')
+  );
+  if (colors.length === 0) {
+    isValid = false;
+    colorError.textContent = "Select at least one color.";
+  } else {
+    colorError.textContent = "";
+  }
+
+  if (!qtyInput.value.trim()) {
+    isValid = false;
+    qtyError.textContent = "Quantity is required.";
+  } else if (parseInt(qtyInput.value, 10) < 1) {
+    isValid = false;
+    qtyError.textContent = "Quantity must be at least 1.";
+  } else {
+    qtyError.textContent = "";
+  }
+
+  if (!priceInput.value.trim()) {
+    isValid = false;
+    priceError.textContent = "Price is required.";
+  } else {
+    priceError.textContent = "";
+  }
+
+  addBtn.disabled = !isValid;
+  addBtn.style.cursor = isValid ? "pointer" : "not-allowed";
+
+  return isValid;
+};
+
 const addProduct = (e) => {
   e.preventDefault();
+
+  if (!validateForm()) {
+    return; // Stop if the form is invalid
+  }
 
   const id = idInput.value;
   const name = form.querySelector("select").value;
@@ -608,8 +693,7 @@ const updateAmount = () => {
 };
 
 const defaultInputs = () => {
-  //   idInput.value = `${products.length + 1}`;
-  idInput.value = "14";
+  idInput.value = `${parseInt(products[products.length - 1].id) + 1}`;
   descInput.value = "This is dummy description. Add specific description.";
   const today = new Date().toISOString().split("T")[0];
   dateInput.value = today;
@@ -617,6 +701,8 @@ const defaultInputs = () => {
   qtyInput.value = 1;
   priceInput.value = 1000;
   amountInput.value = qtyInput.value * priceInput.value;
+
+  validateForm();
 };
 
 addRecordBtn.addEventListener("click", () => {
@@ -644,6 +730,10 @@ backdropForForm.addEventListener("click", () => {
 cancelDeleteBtn.addEventListener("click", closeDeleteDrawer);
 confirmDeleteBtn.addEventListener("click", deleteProduct);
 
+// Attach the validation to form input events
+form.addEventListener("input", validateForm);
+form.addEventListener("change", validateForm);
+
 addBtn.addEventListener("click", addProduct);
 
 // Hide the tooltip when clicking outside of it
@@ -669,8 +759,7 @@ document.addEventListener("click", (event) => {
 
 priceInput.addEventListener("input", updateAmount);
 
-// Initial calculation for when the form is loaded
-updateAmount();
+updateAmount(); // Initial calculation for when the form is loaded
 toggleView("table"); // Initialize table view as active
 updateTable(); // Initialize table with the first page
 updatePagination();

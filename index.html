@@ -215,6 +215,7 @@
                 required
               />
             </div>
+            <span class="errorMessage" id="idError"></span>
           </div>
           <div class="inputContainer">
             <label>Product Name</label>
@@ -230,8 +231,14 @@
                 <option value="Wireless Charger">Wireless Charger</option>
                 <option value="Portable Hard Drive">Portable Hard Drive</option>
                 <option value="Smartphone Case">Smartphone Case</option>
+                <option value="Bluetooth Headphones">
+                  Bluetooth Headphones
+                </option>
+                <option value="Laptop Cooling Pad">Laptop Cooling Pad</option>
+                <option value="LED Desk Lamp">LED Desk Lamp</option>
               </select>
             </div>
+            <span class="errorMessage" id="nameError"></span>
           </div>
           <div class="inputContainer">
             <label>Product Description</label>
@@ -242,6 +249,7 @@
               placeholder="Description for the product"
               required
             ></textarea>
+            <span class="errorMessage" id="descError"></span>
           </div>
           <div class="inputContainer">
             <label>Product Date</label>
@@ -252,6 +260,7 @@
               placeholder="24/07/2024"
               required
             />
+            <span class="errorMessage" id="dateError"></span>
           </div>
           <div class="inputContainer">
             <label>Status</label>
@@ -265,6 +274,7 @@
                 Available
               </div>
             </div>
+            <span class="errorMessage" id="statusError"></span>
           </div>
           <div class="inputContainer">
             <label>Color Options</label>
@@ -295,6 +305,7 @@
                 <span>Black</span>
               </div>
             </div>
+            <span class="errorMessage" id="colorError"></span>
           </div>
           <div class="inputContainer">
             <label>Quantity</label>
@@ -310,6 +321,7 @@
               />
               <span id="increaseQty">+</span>
             </div>
+            <span class="errorMessage" id="qtyError"></span>
           </div>
           <div class="inputContainer">
             <label>Price</label>
@@ -324,6 +336,7 @@
                 required
               />
             </div>
+            <span class="errorMessage" id="priceError"></span>
           </div>
           <div class="inputContainer">
             <label>Amount</label>

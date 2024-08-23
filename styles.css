@@ -689,6 +689,13 @@ main {
   background: #6c757d;
 }
 
+.errorMessage {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(240, 41, 41);
+  margin-top: -16px;
+}
+
 .formControls {
   width: 100%;
   padding: 1rem 0;
