@@ -310,7 +310,7 @@ const populateTable = (products) => {
               src="./assets/description.svg"
               alt="Info"
               class="infoIcon"
-              onclick="toggleTooltip(event, "description-'${id}'")"
+              onclick="toggleTooltip(event, 'description-${id}')"
             >
             <div id="description-${id}" class="tooltip">
                 <p class="descHeader">Product Description</p>
@@ -422,6 +422,8 @@ window.toggleTooltip = (event, tooltipId) => {
   const tooltip = document.querySelector(`#${tooltipId}`);
   const isVisible = tooltip.dataset.visible === "true";
 
+  console.log(tooltip, isVisible);
+
   if (isVisible) {
     tooltip.style.visibility = "hidden";
     tooltip.style.opacity = "0";
@@ -461,7 +463,7 @@ const renderCards = (products) => {
               src="./assets/description.svg"
               alt="Info"
               class="infoIcon"
-              onclick="toggleTooltip(event, "description-'${id}'")"
+              onclick="toggleTooltip(event, 'description-${id}')"
             >
             <div id="description-${id}" class="tooltip">
                 <p class="descHeader">Product Description</p>
@@ -688,7 +690,7 @@ options.forEach((option) => {
 });
 
 const xValues = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const yValues = [0, 3, 6, 9, 12, 15];
+const yValues = [0, 3, 6, 9, 12, 15, 18];
 
 new Chart("revenueChart", {
   type: "line",
@@ -700,12 +702,14 @@ new Chart("revenueChart", {
         borderColor: "#1b1e6d",
         backgroundColor: "#1B1E6D4D",
         fill: true,
+        tension: 0.4,
       },
       {
         data: [15, 11, 12.5, 10, 13, 8.5, 15],
         borderColor: "#14cdc8",
         backgroundColor: "#14CDC84D",
         fill: true,
+        tension: 0.4,
       },
     ],
   },
@@ -722,7 +726,7 @@ new Chart("revenueChart", {
       y: {
         grid: {
           drawBorder: false,
-          display: false,
+          display: true,
         },
         min: Math.min(...yValues),
         max: Math.max(...yValues),
@@ -737,7 +741,7 @@ new Chart("revenueChart", {
         },
       },
     },
-    legend: { display: false },
+    plugins: { legend: { display: false } },
   },
 });
 
@@ -751,12 +755,14 @@ new Chart("lossChart", {
         borderColor: "#FF6D6D",
         backgroundColor: "#FF6D6D4D",
         fill: true,
+        tension: 0.4,
       },
       {
         data: [15, 11, 12.5, 10, 13, 8.5, 15],
         borderColor: "#F9D100",
         backgroundColor: "#F9D1004D",
         fill: true,
+        tension: 0.4,
       },
     ],
   },
@@ -773,7 +779,7 @@ new Chart("lossChart", {
       y: {
         grid: {
           drawBorder: false,
-          display: false,
+          display: true,
         },
         min: Math.min(...yValues),
         max: Math.max(...yValues),
@@ -788,7 +794,7 @@ new Chart("lossChart", {
         },
       },
     },
-    legend: { display: false },
+    plugins: { legend: { display: false } },
   },
 });
 
@@ -806,9 +812,11 @@ const doughnutData = {
 const doughnutOptions = {
   responsive: true,
   //   maintainAspectRatio: false,
-  cutout: "70%",
-  legend: {
-    display: false,
+  cutout: "60%",
+  plugins: {
+    legend: {
+      display: false,
+    },
   },
 };
 
