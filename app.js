@@ -255,12 +255,14 @@ window.openDeleteDrawer = (productId, productName) => {
   deleteRecordContainer.style.display = "block";
   productIdToDelete = productId;
   productNameToDelete.textContent = productName;
+  document.body.style.overflow = "hidden";
 };
 
 window.closeDeleteDrawer = () => {
   productIdToDelete = null;
   deleteRecordContainer.style.display = "none";
   backdropForDelete.style.display = "none";
+  document.body.style.overflow = "";
 };
 
 backdropForDelete.addEventListener("click", () => {
@@ -308,7 +310,7 @@ const populateTable = (products) => {
               src="./assets/description.svg"
               alt="Info"
               class="infoIcon"
-              onclick="toggleTooltip(event, 'description-${id}')"
+              onclick="toggleTooltip(event, "description-'${id}'")"
             >
             <div id="description-${id}" class="tooltip">
                 <p class="descHeader">Product Description</p>
@@ -337,7 +339,7 @@ const populateTable = (products) => {
       const actionCellContent = `
         <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
         <div class="vertical-line"></div>
-        <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
+        <button onclick="openDeleteDrawer('${id}', '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
       `;
       addCell(actionCellContent, true);
 
@@ -459,7 +461,7 @@ const renderCards = (products) => {
               src="./assets/description.svg"
               alt="Info"
               class="infoIcon"
-              onclick="toggleTooltip(event, 'description-${id}')"
+              onclick="toggleTooltip(event, "description-'${id}'")"
             >
             <div id="description-${id}" class="tooltip">
                 <p class="descHeader">Product Description</p>
@@ -470,7 +472,7 @@ const renderCards = (products) => {
             <div>
                 <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
                 <div class="verticalLine" style="height: 1.25rem; width: 1px; background-color: #a1a9b829";></div>
-                <button onclick="openDeleteDrawer(${id}, '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
+                <button onclick="openDeleteDrawer('${id}', '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>
             </div>
         </div>
         <div class="infoRow">
@@ -604,7 +606,7 @@ const updateAmount = () => {
 };
 
 const defaultInputs = () => {
-  idInput.value = "14";
+  idInput.value = `${products.length + 1}`;
   descInput.value = "This is dummy description. Add specific description.";
   const today = new Date().toISOString().split("T")[0];
   dateInput.value = today;
