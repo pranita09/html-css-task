@@ -283,6 +283,7 @@ window.deleteProduct = () => {
       (product) => product.id !== productIdToDelete.toString()
     );
     updateTable();
+    updateCards();
     closeDeleteDrawer();
   }
 };
@@ -470,7 +471,7 @@ const addProduct = (e) => {
     isEditing = false;
     productIdToEdit = null;
   } else {
-    products.push(productData);
+    products = [...products, productData];
   }
 
   form.reset();
@@ -481,6 +482,7 @@ const addProduct = (e) => {
   addBtn.textContent = "Add";
 
   updateTable();
+  updateCards();
   document.body.style.overflow = "";
 };
 
