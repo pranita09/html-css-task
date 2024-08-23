@@ -123,19 +123,42 @@ main {
 /* chartsContainer */
 
 .chartsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
   margin: 1.5rem 0;
   width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: 2rem;
 }
 
 .graphContainer {
-  width: 70%;
+  grid-column: span 3;
   background: #f4f6fd;
   border-radius: 1rem;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+}
+
+.circularChart {
+  grid-column: span 1;
+  background: #f4f6fd;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .chartsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .graphContainer,
+  .circularChart {
+    grid-column: span 1;
+  }
 }
 
 .graphHeader {
@@ -266,13 +289,6 @@ main {
   font-size: 14px;
   font-weight: 400;
   color: #050d26;
-}
-
-.circularChart {
-  width: 30%;
-  background: #f4f6fd;
-  border-radius: 1rem;
-  padding: 1rem;
 }
 
 .circularChart .graphHeader p {
