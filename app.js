@@ -506,24 +506,22 @@ const updateTable = () => {
 window.toggleTooltip = (event, tooltipId) => {
   event.stopPropagation();
 
-  const tooltip = document.querySelector(`#${tooltipId}`);
-  const isVisible = tooltip.dataset.visible === "true";
+  const tooltip = document.getElementById(tooltipId);
+  const isVisible = tooltip.style.visibility === "visible";
 
-  console.log(tooltip, isVisible);
+  console.log(tooltip);
+
+  document.querySelectorAll(".tooltip").forEach((el) => {
+    el.style.visibility = "hidden";
+    el.style.opacity = "0";
+  });
 
   if (isVisible) {
     tooltip.style.visibility = "hidden";
     tooltip.style.opacity = "0";
-    tooltip.dataset.visible = "false";
   } else {
-    document.querySelectorAll(".tooltip").forEach((el) => {
-      el.style.visibility = "hidden";
-      el.style.opacity = "0";
-      el.dataset.visible = "false";
-    });
     tooltip.style.visibility = "visible";
     tooltip.style.opacity = "1";
-    tooltip.dataset.visible = "true";
   }
 };
 
@@ -545,19 +543,22 @@ const renderCards = (products) => {
       card.classList.add("productCard");
       card.innerHTML = `
         <div class="cardHeader">
-            <p>${name}<span class="tooltipContainer">
-            <img
-              src="./assets/description.svg"
-              alt="Info"
-              class="infoIcon"
-              onclick="toggleTooltip(event, 'description-${id}')"
-            >
-            <div id="description-${id}" class="tooltip">
-                <p class="descHeader">Product Description</p>
-              <p>${description}</p>
-              <div class="tooltipArrow"></div>
-            </div>
-          </span></p>
+            <p>
+                <span>${name}</span>
+                <span class="tooltipContainer">
+                    <img
+                        src="./assets/description.svg"
+                        alt="Info"
+                        class="infoIcon"
+                        onclick="toggleTooltip(event, 'card-description-${id}')"
+                    >
+                    <div id="card-description-${id}" class="tooltip">
+                        <p class="descHeader">Product Description</p>
+                        <p>${description}</p>
+                        <div class="tooltipArrow"></div>
+                    </div>
+                </span>
+            </p>
             <div>
                 <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
                 <div class="verticalLine" style="height: 1.25rem; width: 1px; background-color: #a1a9b829";></div>
@@ -683,7 +684,7 @@ const updateAmount = () => {
   const quantity = parseInt(qtyInput.value, 10);
   const price = parseFloat(priceInput.value);
   const amount = quantity * price;
-  amountInput.value = amount;
+  amountInput.value = amount || 1000;
 
   if (quantity <= 1) {
     decreaseQty.disabled = true;
@@ -739,12 +740,11 @@ form.addEventListener("change", validateForm);
 addBtn.addEventListener("click", addProduct);
 
 // Hide the tooltip when clicking outside of it
-document.addEventListener("click", (event) => {
+document.addEventListener("click", () => {
   if (!event.target.closest(".tooltipContainer")) {
     document.querySelectorAll(".tooltip").forEach((tooltip) => {
       tooltip.style.visibility = "hidden";
       tooltip.style.opacity = "0";
-      tooltip.dataset.visible = "false";
     });
   }
 });

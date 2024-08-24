@@ -814,9 +814,9 @@ main {
   border-radius: 5px;
   padding: 1rem;
   position: absolute;
-  z-index: 1000;
-  left: 125%;
-  top: 50%;
+  z-index: 1;
+  left: 22.5%;
+  top: 103%;
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -838,16 +838,28 @@ main {
   padding: 0.15rem 0 0.5rem 0;
   font-size: 16px;
   font-weight: 500;
+  color: #050d26;
 }
 
 .tooltip p:nth-of-type(2) {
   font-size: 14px;
   font-weight: 400;
+  color: #050d26;
 }
 
-.tooltipContainer:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
+.productCard .tooltip {
+  left: 63%;
+  top: -10%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0;
+}
+
+.productCard .tooltip::after {
+  left: -8px;
+  transform: translateY(50%);
+  border-color: #ffffff transparent transparent transparent;
 }
 
 /* cards view */
@@ -862,6 +874,7 @@ main {
 }
 
 .productCard {
+  position: relative;
   width: 100%;
   min-width: 250px;
   border: 1px solid #ddd;
@@ -873,6 +886,7 @@ main {
 }
 
 .cardHeader {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
