@@ -312,9 +312,9 @@ const populateTable = (products) => {
       addCell(id);
 
       const nameCellContent = name
-        ? `<p class="productNameForTable">
+        ? `<div class="productNameForTable">
           <span>${name}</span>
-          <span class="tooltipContainer">
+          <div class="tooltipContainer">
             <img
               src="./assets/description.svg"
               alt="Info"
@@ -326,7 +326,8 @@ const populateTable = (products) => {
               <p>${description}</p>
               <div class="tooltipArrow"></div>
             </div>
-          </span></p>
+          </div>
+          </div>
         `
         : name;
       addCell(nameCellContent, true);
@@ -543,9 +544,9 @@ const renderCards = (products) => {
       card.classList.add("productCard");
       card.innerHTML = `
         <div class="cardHeader">
-            <p>
+            <div>
                 <span>${name}</span>
-                <span class="tooltipContainer">
+                <div class="tooltipContainer">
                     <img
                         src="./assets/description.svg"
                         alt="Info"
@@ -557,8 +558,8 @@ const renderCards = (products) => {
                         <p>${description}</p>
                         <div class="tooltipArrow"></div>
                     </div>
-                </span>
-            </p>
+                </div>
+            </div>
             <div>
                 <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
                 <div class="verticalLine" style="height: 1.25rem; width: 1px; background-color: #a1a9b829";></div>

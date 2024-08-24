@@ -150,12 +150,26 @@ main {
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   .chartsContainer {
     grid-template-columns: 1fr;
   }
 
   .graphContainer,
+  .circularChart {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 769px) {
+  .chartsContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .graphContainer {
+    grid-column: span 3;
+  }
+
   .circularChart {
     grid-column: span 1;
   }
@@ -369,6 +383,7 @@ main {
 
 .tableContainer {
   overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
 }
 
@@ -822,8 +837,8 @@ main {
   padding: 1rem;
   position: absolute;
   z-index: 1;
-  left: 22.5%;
-  top: 103%;
+  left: 125%;
+  top: 50%;
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -855,8 +870,8 @@ main {
 }
 
 .productCard .tooltip {
-  left: 63%;
-  top: -10%;
+  left: 90%;
+  top: 10%;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
