@@ -252,6 +252,8 @@ window.openEditDrawer = (productId) => {
 
     updateAmount();
 
+    validateForm();
+
     addRecordContainer.classList.add("active");
     backdropForForm.style.display = "block";
     form.scrollTop = 0;
