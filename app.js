@@ -475,6 +475,7 @@ const addProduct = (e) => {
     productIdToEdit = null;
   } else {
     products.push(productData);
+    currentPage = totalPages;
   }
 
   form.reset();
@@ -486,6 +487,7 @@ const addProduct = (e) => {
 
   updateTable();
   updateCards();
+  updatePagination();
   document.body.style.overflow = "";
 };
 

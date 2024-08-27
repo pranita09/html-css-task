@@ -661,6 +661,23 @@ main {
   text-align: center;
 }
 
+.idContainer:focus-within,
+.priceContainer:focus-within {
+  border: 2px solid #0071e3;
+  border-radius: 4px;
+}
+
+.idContainer,
+.priceContainer {
+  transition: border;
+}
+
+.idContainer input:focus,
+.priceContainer input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .colorsContainer div {
   display: flex;
   align-items: center;
