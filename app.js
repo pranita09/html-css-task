@@ -474,7 +474,7 @@ const addProduct = (e) => {
     isEditing = false;
     productIdToEdit = null;
   } else {
-    products = [...products, productData];
+    products.push(productData);
   }
 
   form.reset();
@@ -687,7 +687,7 @@ const updateAmount = () => {
   const quantity = parseInt(qtyInput.value, 10);
   const price = parseFloat(priceInput.value);
   const amount = quantity * price;
-  amountInput.value = amount || 1000;
+  amountInput.value = amount || 0;
 
   if (quantity <= 1) {
     decreaseQty.disabled = true;
@@ -700,7 +700,8 @@ const updateAmount = () => {
 
 const defaultInputs = () => {
   idInput.value = `${parseInt(products[products.length - 1].id) + 1}`;
-  descInput.value = "This is dummy description. Add specific description.";
+  descInput.value =
+    "This is a dummy description. Add a product specific description.";
   const today = new Date().toISOString().split("T")[0];
   dateInput.value = today;
   dateInput.setAttribute("min", today);
@@ -846,14 +847,14 @@ new Chart("lossChart", {
     labels: xValues,
     datasets: [
       {
-        data: [6.5, 9.5, 6, 4.5, 6, 5.5, 9],
+        data: [6, 8, 5, 7, 9, 4, 10],
         borderColor: "#FF6D6D",
         backgroundColor: "#FF6D6D4D",
         fill: true,
         tension: 0.4,
       },
       {
-        data: [15, 11, 12.5, 10, 13, 8.5, 15],
+        data: [13, 11, 12.5, 10, 13, 15, 13],
         borderColor: "#F9D100",
         backgroundColor: "#F9D1004D",
         fill: true,

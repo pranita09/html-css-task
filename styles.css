@@ -623,7 +623,7 @@ main {
   border: 1px solid #464f6029;
   color: #1f2937;
   padding: 0 4px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
@@ -837,7 +837,7 @@ main {
   padding: 1rem;
   position: absolute;
   z-index: 1;
-  left: 125%;
+  left: 150%;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0;
@@ -870,7 +870,7 @@ main {
 }
 
 .productCard .tooltip {
-  left: 90%;
+  left: 150%;
   top: 10%;
   display: flex;
   align-items: flex-start;
@@ -880,7 +880,8 @@ main {
 
 .productCard .tooltip::after {
   left: -8px;
-  transform: translateY(50%);
+  top: 50%;
+  transform: translateX(-50%) rotate(90deg);
   border-color: #ffffff transparent transparent transparent;
 }
 
