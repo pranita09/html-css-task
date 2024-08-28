@@ -909,7 +909,7 @@ const doughnutData = {
 
 const doughnutOptions = {
   responsive: true,
-  //   maintainAspectRatio: false,
+  maintainAspectRatio: false,
   cutout: "60%",
   plugins: {
     legend: {

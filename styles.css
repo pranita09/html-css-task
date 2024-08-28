@@ -149,6 +149,14 @@ main {
   justify-content: space-between;
 }
 
+.doughnutGraph {
+  width: 100%;
+}
+
+#doughnutChart {
+  width: 100% !important;
+}
+
 @media (max-width: 900px) {
   .chartsContainer {
     grid-template-columns: repeat(4, 1fr);
@@ -160,20 +168,6 @@ main {
 
   .circularChart {
     grid-column: span 4;
-  }
-}
-
-@media (min-width: 901px) {
-  .chartsContainer {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .graphContainer {
-    grid-column: span 3;
-  }
-
-  .circularChart {
-    grid-column: span 1;
   }
 }
 
@@ -454,6 +448,7 @@ main {
   gap: 1.25rem;
   padding: 3rem 0 1.5rem 0;
   color: #050d26;
+  flex-wrap: wrap;
 }
 
 .paginationBtn {
@@ -923,7 +918,7 @@ input[type="number"] {
 
 .productsCards {
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-content: center;
