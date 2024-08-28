@@ -548,7 +548,7 @@ const renderCards = (products) => {
       card.classList.add("productCard");
       card.innerHTML = `
         <div class="cardHeader">
-            <div>
+            <div class="productName">
                 <span>${name}</span>
                 <div class="tooltipContainer">
                     <img
@@ -564,7 +564,7 @@ const renderCards = (products) => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="actionBtns">
                 <button onclick="openEditDrawer('${id}')"><img src="./assets/edit.svg" alt="Edit"></button>
                 <div class="verticalLine" style="height: 1.25rem; width: 1px; background-color: #a1a9b829";></div>
                 <button onclick="openDeleteDrawer('${id}', '${name}')"><img src="./assets/delete.svg" alt="Delete"></button>

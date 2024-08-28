@@ -954,14 +954,25 @@ input[type="number"] {
   font-weight: 500;
 }
 
-.cardHeader p span {
-  margin-top: 4px;
+.cardHeader .productName .tooltipContainer img {
+  margin-top: 4.5px;
 }
 
-.cardHeader div {
+/* .cardHeader div {
   display: flex;
   align-items: center;
-  /* gap: 0.05rem; */
+  gap: 0.05rem;
+} */
+
+.cardHeader .productName {
+  display: flex;
+  align-items: center;
+}
+
+.cardHeader .actionBtns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .cardHeader div button {
