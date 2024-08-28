@@ -766,6 +766,7 @@ document.addEventListener("click", (event) => {
 });
 
 priceInput.addEventListener("input", updateAmount);
+qtyInput.addEventListener("input", updateAmount);
 
 updateAmount(); // Initial calculation for when the form is loaded
 toggleView("table"); // Initialize table view as active
