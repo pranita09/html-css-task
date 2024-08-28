@@ -954,13 +954,18 @@ input[type="number"] {
   font-weight: 500;
 }
 
-.cardHeader .productName .tooltipContainer img {
-  margin-top: 4.5px;
+.cardHeader .productName .tooltipContainer {
+  /* margin-top: 4.5px; */
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .cardHeader .productName {
-  display: flex;
-  align-items: center;
+  /* display: flex;
+  align-items: center; */
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .cardHeader .actionBtns {
