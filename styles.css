@@ -663,19 +663,34 @@ main {
   text-align: center;
 }
 
+/* For Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .idContainer:focus-within,
-.priceContainer:focus-within {
+.priceContainer:focus-within,
+.qtyContainer:focus-within {
   border: 2px solid #0071e3;
   border-radius: 4px;
 }
 
 .idContainer,
-.priceContainer {
+.priceContainer,
+.qtyContainer {
   transition: border;
 }
 
 .idContainer input:focus,
-.priceContainer input:focus {
+.priceContainer input:focus,
+.qtyContainer input:focus {
   outline: none;
   box-shadow: none;
 }
@@ -908,7 +923,7 @@ main {
 
 .productsCards {
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 305px));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-content: center;
