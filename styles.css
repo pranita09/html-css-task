@@ -958,12 +958,6 @@ input[type="number"] {
   margin-top: 4.5px;
 }
 
-/* .cardHeader div {
-  display: flex;
-  align-items: center;
-  gap: 0.05rem;
-} */
-
 .cardHeader .productName {
   display: flex;
   align-items: center;
